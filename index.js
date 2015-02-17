@@ -1,20 +1,32 @@
-var random = require("./lib/random");
+var random = require("./lib/random"),
+	Character = require("./lib/character");
 
+/*
 var results = [];
-for (var i = 0; i < 100; i++) {
-	results.push(random.roll("2d6+1"));
+for (var i = 0; i < 7; i++) {
+	results.push(random.roll("3d6+10"));
 }
 
-results.sort(function (a, b) {
-	if (a < b) {
-		return -1;
-	}
+console.log(results);
+*/
 
-	if (a > b) {
-		return 1;
-	}
+var character = new Character("Sludgehead #1");
+character.rerollStats();
 
-	return 0;
+character.equip({
+	name: "sword, long",
+	damage: "1d8",
+	type: "handweapon",
+	subtype: "sword",
+	rof: 1
 });
 
-console.log(results);
+character.skills = {
+	"specialized attack: sword, long": 4
+};
+
+console.log(character);
+
+var hits = character.rollAttack(character);
+
+console.log(hits);
