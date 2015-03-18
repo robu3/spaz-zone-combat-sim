@@ -1,5 +1,9 @@
 var random = require("./lib/random"),
-	Character = require("./lib/character");
+	fs = require("fs"),
+	csv = require("csv"),
+	async = require("async"),
+	Character = require("./lib/character"),
+	Battle = require("./lib/battle");
 
 /*
 var results = [];
@@ -10,10 +14,16 @@ for (var i = 0; i < 7; i++) {
 console.log(results);
 */
 
-var character = new Character("Sludgehead #1");
-character.rerollStats();
+var timestamp = Date.now().toString(),
+	resultsFolder = "./results/";
 
-character.equip({
+//fs.truncateSync(filePath);
+
+// Combatant A
+var characterA = new Character("Sludgehead #1");
+characterA.flattenStats();
+
+characterA.equip({
 	name: "sword, long",
 	damage: "1d8",
 	type: "handweapon",
@@ -21,12 +31,78 @@ character.equip({
 	rof: 1
 });
 
-character.skills = {
-	"specialized attack: sword, long": 4
+characterA.skills = {
+	"specialized attack: sword": 4
 };
 
-console.log(character);
+console.log(characterA);
 
-var hits = character.rollAttack(character);
+// Combatant B
+var characterB = new Character("Sludgehead #2");
+characterB.flattenStats();
 
-console.log(hits);
+characterB.equip({
+	name: "sword, long",
+	damage: "1d8",
+	type: "handweapon",
+	subtype: "sword",
+	rof: 1
+});
+
+characterB.skills = {
+	"specialized attack: sword": 4
+};
+
+console.log(characterB);
+
+// init rounds CSV file with headers
+csv.stringify([Battle.outputColumns], function (err, output) {
+	fs.appendFileSync(
+		resultsFolder + timestamp + "_rounds.csv",
+		output
+	);
+});
+
+var funcBattle = function (characterA, characterB, battleCount, battleResults) {
+	characterA.recalculateDerivedStats();
+	characterB.recalculateDerivedStats();
+
+	var battle = new Battle(characterA, characterB, battleCount),
+		doContinue = true;
+
+	while (doContinue) {
+		doContinue = battle.executeRound();
+	}
+
+	battleResults.push({ battle: battleCount, victor: battle.getVictor().name });
+
+	// write round results at the end of combat
+	csv.stringify(battle.rows, function (err, output) {
+		fs.appendFileSync(
+			resultsFolder + timestamp + "_rounds.csv",
+			output
+		);
+
+		if (battleCount > 0) {
+			funcBattle(characterA, characterB, battleCount - 1, battleResults);
+		} else {
+			// done!
+			csv.stringify(battleResults, function (err, output) {
+				fs.appendFileSync(
+					resultsFolder + timestamp + "_battles.csv",
+					output
+				);
+
+				process.exit();
+			});
+		}
+	});
+};
+
+
+// execute 100 battles
+var battleCount = 99,
+	battleResults = [{ battle: "Battle", victor: "Victor" }];
+
+funcBattle(characterA, characterB, battleCount, battleResults);
+

@@ -1,0 +1,25 @@
+{
+  "name": "spaz-zone-combat-sim",
+  "version": "1.0.0",
+  "description": "combat simulator for spaz zone",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/robu3/spaz-zone-combat-sim.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/robu3/spaz-zone-combat-sim/issues"
+  },
+  "homepage": "https://github.com/robu3/spaz-zone-combat-sim",
+  "dependencies": {
+    "async": "^0.9.0"
+  }
+}

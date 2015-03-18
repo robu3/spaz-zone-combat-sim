@@ -13,6 +13,20 @@ describe("Character", function () {
 			}
 		});
 	});
+
+	describe("#calculateStatBonus()", function () {
+		it("should return +/- 1 for each point outside of range 7 - 14", function () {
+			var character = new Character();
+			
+			assert.equal(character.calculateStatBonus(15), 1);
+			assert.equal(character.calculateStatBonus(6), -1);
+			assert.equal(character.calculateStatBonus(7), 0);
+			assert.equal(character.calculateStatBonus(14), 0);
+			assert.equal(character.calculateStatBonus(1), -6);
+			assert.equal(character.calculateStatBonus(20), 6);
+			assert.equal(character.calculateStatBonus(40), 26);
+		});
+	});
 });
 
 
