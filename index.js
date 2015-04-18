@@ -2,8 +2,11 @@ var random = require("./lib/random"),
 	fs = require("fs"),
 	csv = require("csv"),
 	async = require("async"),
+	commander = require("commander"),
+	GoogleSpreadsheet = require("google-spreadsheet"),
 	Character = require("./lib/character"),
-	Battle = require("./lib/battle");
+	Battle = require("./lib/battle"),
+	config = require("./config/config.js");
 
 /*
 var results = [];
@@ -14,7 +17,7 @@ for (var i = 0; i < 7; i++) {
 console.log(results);
 */
 
-var timestamp = Date.now().toString(),
+var timestamp = Date.now().toString(),//(new Date(Date.now())).toISOString(),
 	resultsFolder = "./results/";
 
 //fs.truncateSync(filePath);
@@ -76,6 +79,9 @@ var funcBattle = function (characterA, characterB, battleCount, battleResults) {
 
 	battleResults.push({ battle: battleCount, victor: battle.getVictor().name });
 
+	//console.log(battle.rows);
+	console.log("BATTLE DONE");
+	
 	// write round results at the end of combat
 	csv.stringify(battle.rows, function (err, output) {
 		fs.appendFileSync(
