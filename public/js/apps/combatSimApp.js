@@ -27,6 +27,9 @@ combatSimApp.controller("CombatSimController", function ($scope, Simulation, Wea
 	console.log("angular loaded and running");
 
 	function buildDefaultCombatant() {
+		return new global.Character("Sludgehead");
+
+		/*
 		return {
 			name: "Sludgehead",
 			stats: {
@@ -39,6 +42,7 @@ combatSimApp.controller("CombatSimController", function ($scope, Simulation, Wea
 				looks: 10
 			}
 		}
+		*/
 	}
 
 	// build default combatants

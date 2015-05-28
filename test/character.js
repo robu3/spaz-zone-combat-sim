@@ -27,6 +27,23 @@ describe("Character", function () {
 			assert.equal(character.calculateStatBonus(40), 26);
 		});
 	});
+
+	describe("#getAttackBonus()", function () {
+		it("should calculate the appropriate attack bonuses", function () {
+			var character = new Character();
+			character.stats.power = 40;
+
+			var bonus = character.getAttackBonus({
+				name: "Baz",
+				damage: "1d6",
+				rof: 1,
+				type: "handweapon"
+			});
+
+			assert.equal(bonus.hit, 0);
+			assert.equal(bonus.damage, 26);
+		});
+	});
 });
 
 

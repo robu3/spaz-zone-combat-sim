@@ -2,12 +2,15 @@ html
 	head
 		title!= title
 		link(rel="stylesheet", href="/public/bootstrap/dist/css/bootstrap.min.css", type="text/css")
+		link(rel="stylesheet", href="/public/css/style.css", type="text/css")
 		script(src="/public/jquery/dist/jquery.min.js")
 		script(src="/public/bootstrap/dist/js/bootstrap.min.js")
 		script(src="/public/angular/angular.min.js")
 		script(src="/public/angular-resource/angular-resource.min.js")
 
-		// custome angular code here
+		script(src="/public/js/lib-bundle.js")
+
+		// custom angular code here
 		script(src="/public/js/apps/combatSimApp.js")
 
 	body(ng-app="combatSimApp")
@@ -30,41 +33,16 @@ html
 							label(for="c1_name").col-sm-2.control-label Name
 							div.col-sm-5
 								input#c1_name(type="text", ng-model="combatant1.name").form-control
+							div.col-sm-2
+								label.control-label Bonus
 
-						div.form-group
-							label(for="c1_power").col-sm-2.control-label Power
+						// stats	
+						div(ng-repeat="k in combatant1.Stats").form-group
+							label(for="c1_power").col-sm-2.control-label.stat-name {{ k }}
 							div.col-sm-5
-								input#c1_power(type="text", ng-model="combatant1.stats.power").form-control
-
-						div.form-group
-							label(for="c1_brawn").col-sm-2.control-label Brawn
-							div.col-sm-5
-								input#c1_brawn(type="text", ng-model="combatant1.stats.brawn").form-control
-
-						div.form-group
-							label(for="c1_agility").col-sm-2.control-label Agility
-							div.col-sm-5
-								input#c1_agility(type="text", ng-model="combatant1.stats.agility").form-control
-
-						div.form-group
-							label(for="c1_brains").col-sm-2.control-label Brains
-							div.col-sm-5
-								input#c1_brains(type="text", ng-model="combatant1.stats.brains").form-control
-
-						div.form-group
-							label(for="c1_cunning").col-sm-2.control-label Cunning
-							div.col-sm-5
-								input#c1_cunning(type="text", ng-model="combatant1.stats.cunning").form-control
-
-						div.form-group
-							label(for="c1_control").col-sm-2.control-label Control
-							div.col-sm-5
-								input#c1_control(type="text", ng-model="combatant1.stats.control").form-control
-
-						div.form-group
-							label(for="c1_looks").col-sm-2.control-label Looks
-							div.col-sm-5
-								input#c1_looks(type="text", ng-model="combatant1.stats.looks").form-control
+								input(id="c1_{{ k }}", type="text", ng-model="combatant1.stats[k]").form-control
+							div.col-sm-2
+								label.control-label {{ combatant1.calculateStatBonus(combatant1.stats[k]) || "" }}
 						div.form-group
 							label(for="c1_weapon").col-sm-2.control-label Weapon
 							div.col-sm-5
@@ -78,41 +56,16 @@ html
 							label(for="c2_name").col-sm-2.control-label Name
 							div.col-sm-5
 								input#c2_name(type="text", ng-model="combatant2.name").form-control
+							div.col-sm-2
+								label.control-label Bonus
 
-						div.form-group
-							label(for="c2_power").col-sm-2.control-label Power
+						// stats	
+						div(ng-repeat="k in combatant2.Stats").form-group
+							label(for="c1_power").col-sm-2.control-label.stat-name {{ k }}
 							div.col-sm-5
-								input#c2_power(type="text", ng-model="combatant2.stats.power").form-control
-
-						div.form-group
-							label(for="c2_brawn").col-sm-2.control-label Brawn
-							div.col-sm-5
-								input#c2_brawn(type="text", ng-model="combatant2.stats.brawn").form-control
-
-						div.form-group
-							label(for="c2_agility").col-sm-2.control-label Agility
-							div.col-sm-5
-								input#c2_agility(type="text", ng-model="combatant2.stats.agility").form-control
-
-						div.form-group
-							label(for="c2_brains").col-sm-2.control-label Brains
-							div.col-sm-5
-								input#c2_brains(type="text", ng-model="combatant2.stats.brains").form-control
-
-						div.form-group
-							label(for="c2_cunning").col-sm-2.control-label Cunning
-							div.col-sm-5
-								input#c2_cunning(type="text", ng-model="combatant2.stats.cunning").form-control
-
-						div.form-group
-							label(for="c2_control").col-sm-2.control-label Control
-							div.col-sm-5
-								input#c2_control(type="text", ng-model="combatant2.stats.control").form-control
-
-						div.form-group
-							label(for="c2_looks").col-sm-2.control-label Looks
-							div.col-sm-5
-								input#c2_looks(type="text", ng-model="combatant2.stats.looks").form-control
+								input(id="c2_{{ k }}", type="text", ng-model="combatant2.stats[k]").form-control
+							div.col-sm-2
+								label.control-label {{ combatant2.calculateStatBonus(combatant2.stats[k]) || "" }}
 						div.form-group
 							label(for="c2_weapon").col-sm-2.control-label Weapon
 							div.col-sm-5

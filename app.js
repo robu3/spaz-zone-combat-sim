@@ -11,11 +11,12 @@ var express = require("express"),
 app.set("view engine", "jade");
 app.use("/public", express.static("public"));
 app.use(bodyParser.json());
+
+// "virtual" folders
 app.use("/public/jquery", express.static("node_modules/jquery"));
 app.use("/public/bootstrap", express.static("node_modules/bootstrap"));
 app.use("/public/angular", express.static("node_modules/angular"));
 app.use("/public/angular-resource", express.static("node_modules/angular-resource"));
-
 app.use("/public/results", express.static("results"));
 
 // GET /
