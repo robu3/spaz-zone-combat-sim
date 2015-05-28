@@ -38,7 +38,7 @@ html
 
 						// stats	
 						div(ng-repeat="k in combatant1.Stats").form-group
-							label(for="c1_power").col-sm-2.control-label.stat-name {{ k }}
+							label(for="c1_{{ k }}").col-sm-2.control-label.stat-name {{ k }}
 							div.col-sm-5
 								input(id="c1_{{ k }}", type="text", ng-model="combatant1.stats[k]").form-control
 							div.col-sm-2
@@ -47,7 +47,12 @@ html
 							label(for="c1_weapon").col-sm-2.control-label Weapon
 							div.col-sm-5
 								select.form-control(ng-model="combatant1.weapon", ng-options="w.name for w in weapons")
-									option(value="") Please select a weapon
+									option(value="", disabled) Please select a weapon
+
+						div.form-group
+							label.col-sm-2.control-label &nbsp;
+							div.col-sm-5
+								button.btn.btn-primary.reroll(ng-click="onRerollStatsClick(combatant1)") Reroll Stats
 
 
 				div.col-md-6
@@ -61,7 +66,7 @@ html
 
 						// stats	
 						div(ng-repeat="k in combatant2.Stats").form-group
-							label(for="c1_power").col-sm-2.control-label.stat-name {{ k }}
+							label(for="c2_{{ k }}").col-sm-2.control-label.stat-name {{ k }}
 							div.col-sm-5
 								input(id="c2_{{ k }}", type="text", ng-model="combatant2.stats[k]").form-control
 							div.col-sm-2
@@ -70,12 +75,17 @@ html
 							label(for="c2_weapon").col-sm-2.control-label Weapon
 							div.col-sm-5
 								select.form-control(ng-model="combatant2.weapon", ng-options="w.name for w in weapons")
-									option(value="") Please select a weapon
+									option(value="", disabled) Please select a weapon
+
+						div.form-group
+							label.col-sm-2.control-label &nbsp;
+							div.col-sm-5
+								button.btn.btn-primary.reroll(ng-click="onRerollStatsClick(combatant2)") Reroll Stats
 
 
 			div.row
-				div.col-md-12
-					button.btn.btn-default(ng-click="onSubmitClick()") Run
+				div.col-md-6.col-md-offset-3
+					button#run-sim.btn.btn-success(ng-click="onSubmitClick()") Run Simulation
 
 			div.row
 				div.col-md-12

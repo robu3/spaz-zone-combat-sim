@@ -28,21 +28,6 @@ combatSimApp.controller("CombatSimController", function ($scope, Simulation, Wea
 
 	function buildDefaultCombatant() {
 		return new global.Character("Sludgehead");
-
-		/*
-		return {
-			name: "Sludgehead",
-			stats: {
-				power: 10,
-				brawn: 10,
-				agility: 10,
-				brains: 10,
-				cunning: 10,
-				control: 10,
-				looks: 10
-			}
-		}
-		*/
 	}
 
 	// build default combatants
@@ -77,6 +62,11 @@ combatSimApp.controller("CombatSimController", function ($scope, Simulation, Wea
 			$scope.downloadUrlRounds = data.roundsUrl;
 			$scope.downloadUrlBattles = data.battlesUrl;
 		});
+	};
+
+	// reroll stats click
+	$scope.onRerollStatsClick = function (character) {
+		character.rerollStats();
 	};
 });
 

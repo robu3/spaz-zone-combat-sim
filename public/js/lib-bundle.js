@@ -21,7 +21,7 @@ function Character(name, stats) {
 
 	this.equip({
 		name: "Fists",
-		damage: "0d0",
+		damage: "1d1",
 		type: "handweapon",
 		subtype: "none",
 		rof: 1
