@@ -50,6 +50,11 @@ html
 									option(value="", disabled) Please select a weapon
 
 						div.form-group
+							label(for="c1_skillbonus").col-sm-2.control-label Skill Bonus
+							div.col-sm-5
+								input#c1_skillbonus(type="text", ng-model="combatant1.skillBonus").form-control
+
+						div.form-group
 							label.col-sm-2.control-label &nbsp;
 							div.col-sm-5
 								button.btn.btn-primary.reroll(ng-click="onRerollStatsClick(combatant1)") Reroll Stats
@@ -76,6 +81,11 @@ html
 							div.col-sm-5
 								select.form-control(ng-model="combatant2.weapon", ng-options="w.name for w in weapons")
 									option(value="", disabled) Please select a weapon
+
+						div.form-group
+							label(for="c2_skillbonus").col-sm-2.control-label Skill Bonus
+							div.col-sm-5
+								input#c2_skillbonus(type="text", ng-model="combatant2.skillBonus").form-control
 
 						div.form-group
 							label.col-sm-2.control-label &nbsp;

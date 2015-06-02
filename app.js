@@ -30,21 +30,8 @@ app.get("/", function (request, response) {
 // run the simulation, generating some results
 app.post("/api/simulation", function (request, response) {
 	// build combatants from request
-	var combatant1 = new Character(
-		request.body.combatant1.name,
-		request.body.combatant1.stats
-	);
-	combatant1.recalculateDerivedStats();
-	combatant1.equip(request.body.combatant1.weapon);
-
-	console.log(combatant1);
-
-	var combatant2 = new Character(
-		request.body.combatant2.name,
-		request.body.combatant2.stats
-	);
-	combatant2.recalculateDerivedStats();
-	combatant2.equip(request.body.combatant2.weapon);
+	var combatant1 = buildCombatant(request, "combatant1"),
+		combatant2 = buildCombatant(request, "combatant2");
 
 
 	// execute battles
@@ -73,6 +60,27 @@ app.get("/api/weapons", function (request, response) {
 		response.send(data);
 	});
 });
+
+
+// build a combant from the request body data at `k`
+function buildCombatant(request, k) {
+	// build combatants from request
+	var combatant = new Character(
+		request.body[k].name,
+		request.body[k].stats
+	);
+	combatant.recalculateDerivedStats();
+	combatant.equip(request.body[k].weapon);
+
+	var bonus = parseInt(request.body[k].skillBonus)
+	if (bonus > 0) {
+		var s = Weapons.getSkillName(request.body[k].weapon);
+		combatant.skills = {};
+		combatant.skills[s] = bonus;
+	}
+
+	return combatant;
+}
 
 var server = app.listen(config.server.port, function () {
 	console.log("Server running on: " + server.address().port);
