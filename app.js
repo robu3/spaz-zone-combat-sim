@@ -50,12 +50,13 @@ app.post("/api/simulation", function (request, response) {
 	// execute battles
 	var battleCount = request.body.battleCount - 1,
 		battleResults = [{ battle: "Battle", victor: "Victor" }],
+		battleTotal = {},
 		conf = {
 			timestamp: Date.now().toString(),
 			resultsFolder: "./results/"
 		};
 
-	Battle.executeMultiple(combatant1, combatant2, battleCount, battleResults, conf, function (roundsPath, battlesPath) {
+	Battle.executeMultiple(combatant1, combatant2, battleCount, battleResults, battleTotal, conf, function (roundsPath, battlesPath) {
 
 		// send file URLs back to client
 		response.send({
